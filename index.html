@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BAMZ MARKET </title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+html{scroll-behavior:smooth}
+body{
+background:linear-gradient(-45deg,#06111f,#10284f,#1b4ca5,#0b1d37);
+background-size:400% 400%;
+animation:bg 16s ease infinite;
+color:#fff;overflow-x:hidden}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+#loader{position:fixed;inset:0;background:#07111d;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;transition:.8s}
+.spin{width:65px;height:65px;border:5px solid rgba(255,255,255,.15);border-top-color:#5aa8ff;border-radius:50%;animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+#progress{position:fixed;top:0;left:0;height:4px;background:#63b3ff;width:0;z-index:999}
+.bg,.bg2{position:fixed;border-radius:50%;filter:blur(120px);z-index:-1}
+.bg{width:340px;height:340px;background:#348cff;left:-120px;top:-120px;animation:f1 11s ease-in-out infinite alternate}
+.bg2{width:280px;height:280px;background:#76b9ff;right:-80px;bottom:-80px;animation:f2 12s ease-in-out infinite alternate}
+@keyframes f1{to{transform:translate(80px,60px)}}
+@keyframes f2{to{transform:translate(-80px,-60px)}}
+.container{max-width:430px;margin:auto;padding:24px}
+.card{background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.15);border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.banner{height:170px;background:url('banner.jpg') center/cover}
+.profile{text-align:center;margin-top:-50px;padding:0 20px 24px}
+.profile img{width:96px;height:96px;border-radius:50%;border:4px solid #fff;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+h1{margin-top:12px}
+.bio{opacity:.85;font-size:14px;line-height:1.8;margin-top:10px}
+.section{padding:22px}
+.links a{position:relative;display:block;text-decoration:none;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:16px;border-radius:16px;margin:14px 0;transition:.3s;overflow:hidden}
+.links a:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(65,147,255,.4);background:#1d5fd0}
+.links a::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-25deg)}
+.links a:hover::after{animation:shine .8s}
+@keyframes shine{to{left:160%}}
+.reveal{opacity:0;transform:translateY(35px);transition:1s}
+.reveal.show{opacity:1;transform:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px}
+.box{background:rgba(255,255,255,.08);padding:18px;border-radius:16px;text-align:center}
+.num{font-size:24px;font-weight:700;color:#7ec3ff}
+.credit{text-align:center;padding:0 0 30px;color:#c5dbff;font-size:13px}
+canvas{position:fixed;inset:0;z-index:-2}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Desktop Besar */
+@media (min-width: 1200px){
+
+.container{
+max-width:520px;
+padding:40px;
+}
+
+.banner{
+height:220px;
+}
+
+.profile img{
+width:115px;
+height:115px;
+}
+
+h1{
+font-size:34px;
+}
+
+.links a{
+padding:18px;
+font-size:16px;
+}
+
+}
+
+/* Laptop */
+@media (max-width: 992px){
+
+.container{
+max-width:470px;
+}
+
+}
+
+/* Tablet */
+@media (max-width:768px){
+
+.container{
+padding:18px;
+}
+
+.banner{
+height:180px;
+}
+
+.profile img{
+width:90px;
+height:90px;
+}
+
+h1{
+font-size:26px;
+}
+
+.bio{
+font-size:14px;
+}
+
+.links a{
+padding:15px;
+font-size:15px;
+}
+
+.stats{
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+}
+
+/* HP */
+@media (max-width:480px){
+
+.container{
+width:100%;
+padding:15px;
+}
+
+.card{
+border-radius:20px;
+}
+
+.banner{
+height:155px;
+}
+
+.profile{
+margin-top:-45px;
+}
+
+.profile img{
+width:85px;
+height:85px;
+}
+
+h1{
+font-size:23px;
+}
+
+.section{
+padding:18px;
+}
+
+.links a{
+padding:15px;
+font-size:14px;
+border-radius:15px;
+}
+
+.stats{
+gap:8px;
+}
+
+.box{
+padding:14px 8px;
+}
+
+.num{
+font-size:20px;
+}
+
+.credit{
+font-size:12px;
+}
+
+}
+
+/* HP Sangat Kecil */
+@media (max-width:360px){
+
+.banner{
+height:140px;
+}
+
+.profile img{
+width:75px;
+height:75px;
+}
+
+h1{
+font-size:20px;
+}
+
+.bio{
+font-size:12px;
+}
+
+.links a{
+padding:13px;
+font-size:13px;
+}
+
+.section h2{
+font-size:18px;
+}
+
+.box{
+padding:12px 5px;
+}
+
+.num{
+font-size:18px;
+}
+
+}
+
+.banner{
+    position:relative;
+    width:100%;
+    height:180px;
+    border-radius:22px;
+    overflow:hidden;
+}
+
+.banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.6s;
+}
+
+.banner:hover img{
+    transform:scale(1.08);
+}
+
+.banner-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.65),
+        rgba(0,0,0,.15),
+        transparent
+    );
+}
+
+.banner-text{
+
+    position:absolute;
+
+    left:20px;
+
+    bottom:18px;
+
+    z-index:5;
+
+}
+
+.banner-text h2{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.banner-text p{
+
+    color:#dbeafe;
+
+    font-size:14px;
+.links a{
+
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+
+}
+
+
+object-fit:contain;
+
+}
+
+}
+</style>
+</head>
+<body>
+<div id="loader"><div class="spin"></div><p style="margin-top:15px">Loading Bamz Website...</p></div>
+<div id="progress"></div>
+<canvas id="p"></canvas>
+<div class="bg"></div><div class="bg2"></div>
+
+<div class="container reveal">
+<div class="card">
+<div class="banner">
+    <img src="baner.png">
+    <div class="banner-overlay"></div>
+
+    <div class="banner-text">
+
+        
+    </div>
+</div>
+<div class="profile">
+<img src="profil.jpg">
+<h1>BAMZ MARKET</h1>
+<p class="bio">Trusted Reseller Account<br>✔ Road To 1k Testimoni • ✔ Since 2022</p>
+</div>
+<div class="section reveal">
+<h2>Tentang Kami</h2>
+<p style="opacity:.85;margin-top:10px;line-height:1.8">BAMZ MARKET Adalah tempat jual beli akun game teraman dan dapat dipercaya. Bagi saya kepercayaan adalah hal termahal yang harus dijaga..</p>
+</div>
+<div class="section links reveal">
+
+<a href="https://wa.me/6285782053634">
+    <img src="whatsap.png" class="icon" width="30px" height="30px"> Whatsap 1
+    
+</a>
+
+<a href="https://wa.me/6281287119668">
+    <img src="whatsap.png" class="icon" width="30px" height="30px">
+    WhatsApp Admin 2
+</a>
+
+<a href="https://whatsapp.com/channel/0029VaznO45JuyAAh4M9u726">
+    <img src="whatsap.png" class="icon" width="30px" height="30px">
+    Saluran Stok Murah
+</a>
+
+<a href="tiktok.com/@bamzajayaaa">
+    <img src="tiktok.png" class="icon" width="30px" height="30px">
+    TikTok
+</a>
+
+<a href="https://www.instagram.com/bamzajaa_?igsh=Y3QyOG53cHJhd3Vk">
+    <img src="instagram.png" class="icon" width="30px" height="30px">
+    Instagram
+</a>
+
+</div>
+<div class="stats reveal">
+<div class="box"><div class="num" data-target="500">0</div><small>Account Sold Out</small></div>
+<div class="box"><div class="num" data-target="1000">0</div><small>Road to 1K Testimoni</small></div>
+<div class="box"><div class="num" data-target="2022">0</div><small>Since</small></div>
+</div>
+</div>
+<b></b>
+<b></b>
+<b></b>
+<div class="credit" style="margin-top : 25px">© Bamz Market</div>
+</div>
+
+<script>
+window.onload=()=>{setTimeout(()=>loader.style.opacity=0,700);setTimeout(()=>loader.remove(),1500)}
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('show')}))
+document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+document.querySelectorAll('.num').forEach(n=>{
+ let t=+n.dataset.target,c=0,s=t/80;
+ let i=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(i)}
+ n.innerText=t==1000?Math.floor(c)+(c>=1000?'+':''):Math.floor(c)+(t==500&&c>=500?'+':'');
+ },20)
+});
+window.addEventListener('scroll',()=>{
+let h=document.documentElement;
+progress.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';
+});
+document.querySelectorAll('.links a').forEach(a=>{
+a.onclick=e=>{
+const r=document.createElement('span');
+r.style.position='absolute';r.style.width='12px';r.style.height='12px';r.style.borderRadius='50%';
+r.style.background='rgba(255,255,255,.5)';
+r.style.left=e.offsetX+'px';r.style.top=e.offsetY+'px';
+r.style.transform='translate(-50%,-50%)';
+r.style.animation='rip .6s forwards';
+a.appendChild(r);setTimeout(()=>r.remove(),600);
+}
+});
+const st=document.createElement('style');
+st.textContent='@keyframes rip{to{transform:translate(-50%,-50%) scale(20);opacity:0}}';
+document.head.appendChild(st);
+
+const c=document.getElementById('p'),x=c.getContext('2d');
+function rs(){c.width=innerWidth;c.height=innerHeight}rs();onresize=rs;
+let pts=[...Array(35)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*2+1}));
+(function anim(){x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(160,210,255,.5)';
+pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fill()});requestAnimationFrame(anim)})();
+</script>
+</body>
+</html>
